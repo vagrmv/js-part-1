@@ -174,28 +174,6 @@ const output = document.getElementById('output');
     });
 })();
 
-function CountriesDict() {
-    this.dict = {};
-    this.addCountry = (country) => {
-        this.dict[country.cca3] = country;
-    };
-    this.addCountries = (countriesArray) => {
-        for (const country of countriesArray) {
-            this.addCountry(country);
-        }
-    };
-    this.isContain = (code) => {
-        return Object.keys(this.dict).find((item) => {
-            return item === code;
-        });
-    };
-    this.printDict = () => {
-        for (const code of Object.keys(this.dict)) {
-            console.log(this.dict[code].toString());
-        }
-    };
-}
-
 function Country(cca3, name, bordersArray) {
     this.cca3 = cca3;
     this.name = name;
@@ -236,7 +214,17 @@ async function loadPath(codeFrom, codeTo) {
     }
 
     let requests = 2;
-    const visited = new CountriesDict();
+    const visited = {
+        dict: {},
+        addCountry(country) {
+            this.dict[country.cca3] = country;
+        },
+        isContain(code) {
+            return Object.keys(this.dict).find((item) => {
+                return item === code;
+            });
+        },
+    };
     const queue = [countryFrom.cca3];
     const distance = {
         [countryFrom.cca3]: 1,
