@@ -157,9 +157,7 @@ const output = document.getElementById('output');
                     pathNames.push(countriesData[code].name.common);
                 });
 
-                output.innerHTML = `Path to destination: ${pathNames.join(' → ')}
-        <br/>Countires in path: ${result.distance}
-        <br/>Requests: ${result.requestsAmmount}`;
+                printResult(pathNames, result.distance, result.requestsAmmount);
             })
             .catch((error) => {
                 if (error.message) {
@@ -187,6 +185,12 @@ function disableUI(value) {
     fromCountry.disabled = value;
     toCountry.disabled = value;
     submit.disabled = value;
+}
+
+function printResult(pathNames, distance, requestsAmmount) {
+    output.innerHTML = `Path to destination: ${pathNames.join(' → ')}
+        <br/>Countires in path: ${distance}
+        <br/>Requests: ${requestsAmmount}`;
 }
 
 function getCodeFromName(name, countriesData) {
