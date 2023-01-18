@@ -147,7 +147,10 @@ const output = document.getElementById('output');
 
         output.textContent = `Loading path from ${fromCountry.value} to ${toCountry.value}...`;
 
-        loadPath(countriesData)
+        const codeFrom = getCodeFromName(fromCountry.value, countriesData);
+        const codeTo = getCodeFromName(toCountry.value, countriesData);
+
+        loadPath(codeFrom, codeTo)
             .then((result) => {
                 const pathNames = [];
                 result.path.forEach((code) => {
@@ -224,10 +227,7 @@ async function loadCountryByCode(code) {
     return new Country(country.cca3, country.name.common, country.borders);
 }
 
-async function loadPath(countriesData) {
-    const codeFrom = getCodeFromName(fromCountry.value, countriesData);
-    const codeTo = getCodeFromName(toCountry.value, countriesData);
-
+async function loadPath(codeFrom, codeTo) {
     const countryFrom = await loadCountryByCode(codeFrom);
     const countryTo = await loadCountryByCode(codeTo);
 
