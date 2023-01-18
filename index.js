@@ -36,46 +36,6 @@ async function getDataAsync(url) {
     throw error;
 }
 
-// // Загрузка данных через промисы (то же самое что `getDataAsync`)
-// function getDataPromise(url) {
-//     // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-//     return fetch(url, {
-//         method: 'GET',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         redirect: 'follow',
-//     }).then(
-//         (response) => {
-//             // Если мы тут, значит, запрос выполнился.
-//             // Но там может быть 404, 500, и т.д., поэтому проверяем ответ.
-//             if (response.ok) {
-//                 return response.json();
-//             }
-//             // Пример кастомной ошибки (если нужно проставить какие-то поля
-//             // для внешнего кода). Можно зареджектить и сам `response`, смотря
-//             // какой у вас контракт. Главное перевести код в ветку `catch`.
-//             return Promise.reject({
-//                 status: response.status,
-//                 customError: 'wtfPromise',
-//             });
-//         },
-
-//         // При сетевой ошибке (мы оффлайн) из fetch вылетит эксцепшн,
-//         // и мы попадём в `onRejected` или в `.catch()` на промисе.
-//         // Если не добавить `onRejected` или `catch`, при ошибке будет
-//         // эксцепшн `Uncaught (in promise)`.
-//         (error) => {
-//             // Если не вернуть `Promise.reject()`, для внешнего кода
-//             // промис будет зарезолвлен с `undefined`, и мы не попадём
-//             // в ветку `catch` для обработки ошибок, а скорее всего
-//             // получим другой эксцепшн, потому что у нас `undefined`
-//             // вместо данных, с которыми мы работаем.
-//             return Promise.reject(error);
-//         }
-//     );
-// }
-
 // Две функции просто для примера, выберите с await или promise, какая нравится
 const getData = getDataAsync;
 
